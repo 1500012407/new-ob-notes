@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>New OB Orientation 笔记</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; a two-up "keep at hand" block on top, then topic sections, a gestational-week ruler and a checklist */
+:root {
+  --bg: #f4f7f6;
+  --surface: #ffffff;
+  --ink: #1d2a26;
+  --muted: #5a6964;
+  --line: #d9e2df;
+  --accent: #1f6b58;
+  --accent-soft: #e2f0eb;
+  --alert: #b2352c;
+  --alert-soft: #fbe9e7;
+  --np: #c0612a;
+  --band1: #e6efec; --band2: #d6e7e1; --band3: #c5ddd5;
+  --f-display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --f-body: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111816; --surface: #19221f; --ink: #e3ebe8; --muted: #98a9a3; --line: #2b3734;
+  --accent: #6cc0a5; --accent-soft: #1d3a32; --alert: #f08a7f; --alert-soft: #3a1f1c; --np: #f0a06d;
+  --band1: #1c2725; --band2: #22322e; --band3: #2a3d38; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #111816; --surface: #19221f; --ink: #e3ebe8; --muted: #98a9a3; --line: #2b3734;
+  --accent: #6cc0a5; --accent-soft: #1d3a32; --alert: #f08a7f; --alert-soft: #3a1f1c; --np: #f0a06d;
+  --band1: #1c2725; --band2: #22322e; --band3: #2a3d38; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15.5px; line-height: 1.75; }
+.wrap { max-width: 820px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 72px; display: flex; flex-direction: column; gap: 44px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.35; }
+h1 { font-size: clamp(26px, 5vw, 34px); }
+h2 { font-size: 22px; display: flex; align-items: baseline; gap: 10px; }
+h2 .en { font-family: var(--f-body); font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: .04em; }
+h3 { font-size: 16.5px; }
+p { margin: 0; }
+a { color: var(--accent); }
+ul { margin: 0; padding-left: 1.2em; }
+li + li { margin-top: 3px; }
+.num, .mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 13.5px; }
+section { display: flex; flex-direction: column; gap: 16px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+header { display: flex; flex-direction: column; gap: 12px; }
+.eyebrow { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; color: var(--muted); }
+.note { font-size: 13.5px; color: var(--muted); border-left: 2px solid var(--line); padding-left: 12px; }
+
+/* keep-at-hand */
+.keep { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 680px) { .keep { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card.alert { border-color: color-mix(in srgb, var(--alert) 45%, var(--line)); background: var(--alert-soft); }
+.card.alert h3 { color: var(--alert); }
+.phone-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; padding-block: 8px; border-top: 1px dashed var(--line); }
+.phone-row:first-of-type { border-top: 0; padding-top: 0; }
+.phone-row .label { font-size: 13.5px; color: var(--muted); }
+.phone-row .val { font-family: var(--f-mono); font-size: 17px; font-weight: 500; user-select: all; }
+.phone-row .sub { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+.warn-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.warn-list li { display: grid; grid-template-columns: 14px 1fr; gap: 8px; margin: 0; }
+.warn-list li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--alert); margin-top: .7em; }
+
+/* toc */
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.toc a { text-decoration: none; font-size: 13.5px; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font-size: 12.5px; letter-spacing: .06em; color: var(--muted); font-weight: 700; background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface)); }
+td.k { font-weight: 700; white-space: nowrap; }
+td .call { color: var(--alert); }
+.tbl.sym td:first-child { width: 22%; }
+.tbl.sym td:last-child { width: 30%; }
+@media (max-width: 560px) { .tbl.sym table { min-width: 620px; } }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 680px) { .two { grid-template-columns: 1fr; } }
+.two > div { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.tag { display: inline-block; font-size: 12px; padding: 0 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.tag.no { background: var(--alert-soft); color: var(--alert); }
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* timeline */
+.tl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 16px 16px 12px; }
+.tl { min-width: 700px; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; }
+.tl-row { display: grid; grid-template-columns: 128px 1fr; gap: 10px; align-items: center; }
+.tl-row .lab { color: var(--ink); line-height: 1.3; }
+.tl-row .lab small { display: block; color: var(--muted); font-size: 11.5px; }
+.track { position: relative; height: 24px; }
+.track .bar { position: absolute; top: 4px; height: 16px; border-radius: 4px; background: var(--accent); color: var(--surface); font-size: 11px; line-height: 16px; padding-inline: 6px; white-space: nowrap; overflow: hidden; }
+.track .bar.soft { background: var(--accent-soft); color: var(--accent); border: 1px dashed var(--accent); }
+.track .bar.warn { background: var(--alert-soft); color: var(--alert); border: 1px solid color-mix(in srgb, var(--alert) 40%, transparent); }
+.track .bar.fade { background: linear-gradient(90deg, var(--accent) 50%, transparent); color: var(--surface); }
+.track .dot { position: absolute; top: 6px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); }
+.track .dot.np { background: var(--np); }
+.tri { display: flex; height: 22px; border-radius: 4px; overflow: hidden; font-size: 11.5px; }
+.tri span { display: flex; align-items: center; justify-content: center; color: var(--ink); }
+.axis { position: relative; height: 18px; color: var(--muted); font-family: var(--f-mono); font-size: 11px; }
+.axis span { position: absolute; transform: translateX(-50%); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); padding-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+
+/* visit list */
+.visits { display: flex; flex-wrap: wrap; gap: 6px; }
+.visits span { font-family: var(--f-mono); font-size: 13px; border: 1px solid var(--line); border-radius: 6px; padding: 2px 9px; background: var(--surface); }
+.visits span.np { border-color: var(--np); color: var(--np); }
+
+/* checklist */
+.check { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.check li { margin: 0; }
+.check label { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; cursor: pointer; padding: 8px 12px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); }
+.check input { margin-top: .45em; accent-color: var(--accent); width: 16px; height: 16px; }
+.check input:checked + span { color: var(--muted); text-decoration: line-through; }
+
+/* qa */
+.qa { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+.qa > div { display: grid; grid-template-columns: 1fr; gap: 4px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.qa .q { font-weight: 700; }
+.qa .q::before { content: "问 "; color: var(--accent); font-family: var(--f-display); }
+.qa .a::before { content: "答 "; color: var(--muted); font-family: var(--f-display); font-weight: 700; }
+
+footer { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Sutter Health · PAMF Los Gatos OB/GYN</div>
+  <h1>新孕产检入组培训（New OB Orientation）笔记</h1>
+  <div class="meta">
+    <span>讲者：Casey H., RN</span>
+    <span>Zoom 线上课 · 约 57 分钟</span>
+    <span>整理日期 <span class="num">2026-10-14</span></span>
+  </div>
+  <p class="note">录屏没有录到声音，本页内容来自幻灯片画面和 Zoom 实时字幕的识别文本，按主题重新整理。讲者强调：课程只做一般性宣教，个人情况请在 New OB 首诊时和医生讨论。</p>
+</header>
+
+<div class="keep">
+  <div class="card">
+    <h3>电话与地址</h3>
+    <div class="phone-row"><span class="label">诊所（周一至周五 8:00–17:00）</span><span class="val">408-523-3870</span>
+      <span class="sub">2506 Samaritan Court, San Jose · 3 楼</span></div>
+    <div class="phone-row"><span class="label">下班后 / 周末 / 节假日急事</span><span class="val">408-739-6000</span>
+      <span class="sub">17:00 后或周末按 “0” 转接线员；20 分钟内没回电就再打一次</span></div>
+    <div class="phone-row"><span class="label">分娩医院：Good Samaritan Hospital</span><span class="val small">2 楼产房</span>
+      <span class="sub">2425 Samaritan Dr, San Jose, CA 95124 · 这是诊所医生唯一接生的医院，记得确认保险能覆盖</span></div>
+    <p class="small muted">My Health Online 消息只适合不急的事。下班后发的消息要到下一个工作日才有人看（周五晚发的要等到下周）。急事一律打电话。</p>
+  </div>
+  <div class="card alert">
+    <h3>出现以下情况，任何时间直接打电话</h3>
+    <ul class="warn-list">
+      <li>任何阴道出血</li>
+      <li>阴道流液（大量涌出或缓慢滴漏，可能是破水）</li>
+      <li>严重腹痛</li>
+      <li>严重恶心呕吐、脱水，超过 24 小时什么都吃不进</li>
+      <li>发烧超过 <span class="num">100.4°F</span>（<span class="num">38°C</span>）</li>
+      <li>胎动减少（孕周再大些医生会教你怎么判断）</li>
+      <li>任何外伤：摔倒、车祸，哪怕没撞到肚子也要打。需要在事发 1–2 小时内做监护，排除胎盘问题</li>
+    </ul>
+    <p class="small">另外：确认宫内孕之前出现中重度腹痛，要尽快联系或去急诊，排除宫外孕。20 周后头痛用 Tylenol、休息、补水都不缓解，要联系医生排查子痫前期。</p>
+  </div>
+</div>
+
+<nav class="toc" aria-label="目录">
+  <a href="#team">诊所与团队</a>
+  <a href="#trimesters">三个孕期</a>
+  <a href="#symptoms">常见不适</a>
+  <a href="#nutrition">体重与营养</a>
+  <a href="#food">饮食禁忌</a>
+  <a href="#exercise">运动</a>
+  <a href="#meds">用药</a>
+  <a href="#life">生活注意</a>
+  <a href="#testing">产前检查</a>
+  <a href="#timeline">孕周时间轴</a>
+  <a href="#visits">产检安排</a>
+  <a href="#todo">首诊前待办</a>
+  <a href="#qa">课堂答疑</a>
+</nav>
+
+<section id="team">
+  <h2>诊所与团队 <span class="en">Care Team</span></h2>
+  <div class="two">
+    <div>
+      <h3>医生和护士</h3>
+      <ul>
+        <li>11 位妇产科医生，全部是女医生。每人会被分配一位<strong>主治 OB</strong>，大部分产检都看她。</li>
+        <li>3 位执业护士（NP）：Lisa Dou、Tammy S. Hwang、Laura Bromage，部分产检由 NP 负责。</li>
+        <li>接生由当天值班医生负责（医生轮流值 24 小时班），不一定是你的主治 OB，但一定是本诊所的医生。</li>
+      </ul>
+      <p class="small muted">医生：Esther Yun、Diana Aung、Nidhi Jacob、Hao Nguyen、Maria A. Rodriguez Ballestas、Kristie C. Sutton、Jeyling Chou、Marjorie W. Bhogal、Jessica L. Li、Julie Najar、Farsam F. Azad。护士 RN：Casey H.、Whitney A.、Ely V.、Shiella A.</p>
+    </div>
+    <div>
+      <h3>合作科室</h3>
+      <ul>
+        <li><strong>母胎医学科（MFM）</strong>：负责高危妊娠。每个人都会被转诊到 MFM，因为正式超声（生长发育、大排畸）都在那里做；诊所医生只做确认怀孕之类的床旁超声。</li>
+        <li><strong>营养科</strong>：有饮食问题或确诊妊娠糖尿病会转诊。</li>
+        <li><strong>Newborn Navigator</strong>：约 16 周时会联系你，帮你挑选宝宝的儿科医生。</li>
+        <li>New OB 首诊时会拿到一个<strong>蓝色文件夹</strong>，里面有各种宣传单和产检时间表。</li>
+      </ul>
+      <p class="small muted">Good Samaritan 医院：产房和产后病房都是单间；三级 NICU；产房 24 小时有高危产科医生和麻醉医生。</p>
+    </div>
+  </div>
+</section>
+
+<section id="trimesters">
+  <h2>三个孕期的变化 <span class="en">Changes throughout Pregnancy</span></h2>
+  <div class="tbl"><table>
+    <thead><tr><th>阶段</th><th>可能出现的变化</th></tr></thead>
+    <tbody>
+      <tr><td class="k">早孕期<br><span class="num small muted">≤ 13+6 周</span></td><td>疲倦、乳房胀痛、恶心（可能伴呕吐）、情绪波动、嘴馋或厌食某些食物、便秘、尿频、头痛、烧心、腹胀排气多。体重通常不怎么涨，甚至可能下降。</td></tr>
+      <tr><td class="k">中孕期<br><span class="num small muted">14 – 27+6 周</span></td><td>恶心多半缓解、胃口变好；身体各处酸痛（背、腹、乳房、大腿、臀部）；开始感到胎动；肚皮发紧发痒、妊娠纹；面部或肚脐到耻骨出现色素沉着线；脚和脚踝水肿。</td></tr>
+      <tr><td class="k">晚孕期<br><span class="num small muted">28 – 40+ 周</span></td><td>胎动、气短、烧心、水肿、睡不好；宝宝“入盆”压迫膀胱导致尿频；痔疮；乳房胀痛；宫缩增多。Braxton Hicks 假性宫缩是无痛、不规律的肚子发紧，休息补水后会消失。临产征兆医生之后会专门讲。</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="symptoms">
+  <h2>常见不适与处理 <span class="en">Common Symptoms</span></h2>
+  <p class="muted small">总原则：耐心一些，大部分症状都是暂时的。止痛只用 Tylenol。</p>
+  <div class="tbl sym"><table>
+    <thead><tr><th>症状</th><th>怎么缓解</th><th>什么时候联系医生</th></tr></thead>
+    <tbody>
+      <tr><td class="k">恶心呕吐</td><td>
+        少食多餐，别空腹也别吃太撑。一线用药：<br>
+        · <strong>维生素 B6</strong> <span class="num">25–50 mg</span>，每天 3–4 次，可单用（只买到 100 mg 片可掰半）<br>
+        · <strong>Unisom</strong>（认准成分 <em>doxylamine succinate</em>）<span class="num">12.5 mg</span>＝半片，每天 3–4 次。会犯困，先在晚上试；白天受得了就和 B6 一起吃，否则白天只吃 B6、晚上加 Unisom<br>
+        没症状就不用吃。吃不下也要补水：冰块、冰棒、果冻、清汤、Gatorade、Pedialyte；姜糖 / 姜汁汽水 / 腌姜；晕船手环；避开油腻、油炸、辛辣。清淡、凉的食物气味小，通常更好入口。</td>
+        <td class="call">超过 24 小时吃不进东西、出现脱水</td></tr>
+      <tr><td class="k">抽筋样腹痛、子宫肌肉痛</td><td>热敷背部或腿，不要直接敷在肚子上；换个姿势；多喝水（子宫是肌肉，脱水会痉挛）。</td><td class="call">尚未确认宫内孕时出现中重度疼痛（排除宫外孕）</td></tr>
+      <tr><td class="k">便秘</td><td>多喝水、多吃膳食纤维，或吃纤维补充剂（Metamucil）；大便软化剂（如 Colace）可每天用；需要时用温和泻药 Miralax。孕激素和含铁的孕期维生素都会加重便秘。</td><td>—</td></tr>
+      <tr><td class="k">尿频</td><td>正常。早孕期激素引起，中孕期可能好转，晚孕期宝宝压迫膀胱又会回来。</td><td class="call">出现尿急、尿痛等尿路感染症状</td></tr>
+      <tr><td class="k">圆韧带痛</td><td>下腹一侧或两侧的尖锐刺痛，换姿势或走路时加重，常见于中孕期但也可能更早。对宝宝无害。可用孕妇托腹带；睡觉时腿间、背后、肚子下垫枕头；可吃 Tylenol。</td><td>—</td></tr>
+      <tr><td class="k">鼻塞、流鼻血</td><td>血容量增加和激素导致鼻黏膜肿胀。加湿器、生理盐水喷鼻、鼻腔涂凡士林保湿。流鼻血时捏住鼻梁或冰敷鼻梁，<strong>不要仰头</strong>（血流进胃里会恶心）。</td><td class="call">持续止不住：看家庭医生或急诊</td></tr>
+      <tr><td class="k">头痛</td><td>多喝水、多休息、少食多餐；Tylenol 常规或加强剂量按说明吃；少量咖啡因、补镁也有帮助。有偏头痛史的继续由家庭医生管理。</td><td class="call">20 周后头痛，上述方法都不缓解（排查子痫前期）</td></tr>
+      <tr><td class="k">痔疮</td><td>避免排便用力，保持大便软（补水、高纤维、软便剂）。可用 Preparation H、Tucks 湿巾、坐浴。</td><td class="call">剧痛、持续出血或发烧</td></tr>
+      <tr><td class="k">烧心</td><td>Tums、Rolaids（含钙，会影响铁吸收，和孕期维生素 / 铁剂<strong>间隔至少 1 小时</strong>）、Pepcid AC。少食多餐，饭后别马上躺下，可以散散步。</td><td>—</td></tr>
+      <tr><td class="k">分泌物增多</td><td>正常。白色乳状为主，偏棕、偏黄、透明也都正常。</td><td class="call">豆渣样分泌物、外阴刺激或瘙痒</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="nutrition">
+  <h2>体重与营养 <span class="en">Weight Gain &amp; Nutrition</span></h2>
+  <div class="two">
+    <div>
+      <h3>按孕前 BMI 的总增重目标</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>孕前 BMI</th><th>建议总增重</th></tr></thead>
+        <tbody>
+          <tr><td>偏瘦 <span class="num">&lt; 18.5</span></td><td class="num">28–40 lb</td></tr>
+          <tr><td>正常 <span class="num">18.5–24.9</span></td><td class="num">25–35 lb</td></tr>
+          <tr><td>超重 <span class="num">25.0–29.9</span></td><td class="num">15–25 lb</td></tr>
+          <tr><td>肥胖 <span class="num">≥ 30.0</span></td><td class="num">11–20 lb</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">正常 BMI 平均整个孕期涨 <span class="num">25–35 lb</span>（约 11–16 kg），没有每周或每月的固定指标；双胎可到约 40 lb。具体目标和医生个别讨论。</p>
+    </div>
+    <div>
+      <h3>每天的饮食目标</h3>
+      <ul>
+        <li>可以一天吃 6 顿小餐。</li>
+        <li>不用数卡路里。中、晚孕期每天多摄入约 <span class="num">340–450</span> 千卡，大概就是多一顿加餐。</li>
+        <li>蛋白质每天 <span class="num">75–100 g</span>。</li>
+        <li>水至少 <span class="num">76 oz</span>（约 2.25 L），运动多或天热要更多。尿色浅就说明喝够了。</li>
+        <li>孕期维生素：现在就该吃。不指定品牌，但必须含叶酸；建议备孕、孕期、哺乳期都吃。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>营养素</th><th>每日总量（饮食 + 孕期维生素合计）</th></tr></thead>
+    <tbody>
+      <tr><td class="k">叶酸 Folic acid</td><td><span class="num">600 mcg</span></td></tr>
+      <tr><td class="k">钙 Calcium</td><td><span class="num">1,000 mg</span>（19–50 岁）；<span class="num">1,300 mg</span>（14–18 岁）。Tums/Rolaids 也算钙来源</td></tr>
+      <tr><td class="k">维生素 D</td><td><span class="num">600–800 IU</span>；补充剂不要超过 <span class="num">2,000 IU</span></td></tr>
+      <tr><td class="k">铁 Iron</td><td>元素铁 <span class="num">30 mg</span>，相当于硫酸亚铁 <span class="num">150 mg</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><strong>这些是总量，不是让你额外补多少。</strong>除了孕期维生素，医生没让补就别自己加补充剂。正在吃或想吃的补充剂，带到首诊和医生讨论。营养尽量从食物里来。</p>
+</section>
+
+<section id="food">
+  <h2>饮食禁忌 <span class="en">Foods to Limit or Avoid</span></h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li><span class="tag no">避免</span> 高汞大型鱼：剑鱼、方头鱼（tilefish）、鲨鱼等</li>
+        <li><span class="tag no">不要吃</span> 生的或未熟透的肉、鱼、蛋，全部要彻底做熟（防细菌感染）</li>
+        <li><span class="tag no">避免</span> 未经巴氏杀菌的乳制品</li>
+        <li><span class="tag no">避免</span> 生芽菜：苜蓿芽、三叶草芽、萝卜苗、绿豆芽</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><span class="tag">限量</span> 咖啡因每天 ≤ <span class="num">200 mg</span>，约 1 杯咖啡或 2 杯茶。不确定可以看成分表或问咖啡店。</li>
+        <li>吃海鲜的话，课上展示了 FDA/EPA 的孕期吃鱼指南表（Best Choices / Good Choices / Choices to Avoid），原图可查 <a href="https://www.fda.gov/food/consumers/advice-about-eating-fish" target="_blank" rel="noopener">FDA Advice about Eating Fish</a>。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="exercise">
+  <h2>运动 <span class="en">Exercise &amp; Staying Fit</span></h2>
+  <div class="two">
+    <div>
+      <h3>可以做</h3>
+      <ul>
+        <li>孕前就运动的人可以继续原来的运动，量力而行，听身体的。</li>
+        <li>推荐：孕妇瑜伽（任何时候都可以开始）、散步、游泳、低冲击有氧。</li>
+        <li>没有内外科并发症的话，建议每周 5–7 天、每次 30 分钟以上中等强度运动，包括有氧和力量训练。</li>
+        <li>之前久坐的人：从每周 3 次、每次 10–20 分钟连续低强度运动开始，逐步增加强度、频率和时长。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>要避免</h3>
+      <ul>
+        <li>高冲击运动：孕期韧带会松弛，容易受伤。</li>
+        <li>身体对抗类运动。</li>
+        <li>有摔倒风险的运动：滑雪、骑马等。</li>
+        <li>潜水（浮潜只在水面可以）。</li>
+      </ul>
+      <p class="small muted">小贴士：随时补水，听身体的信号。</p>
+    </div>
+  </div>
+</section>
+
+<section id="meds">
+  <h2>用药 <span class="en">Medications</span></h2>
+  <p>大部分药品标签都会写“请咨询医生”，所以诊所有一份<strong>孕期安全用药清单</strong>（按症状列出可用的非处方药），会随今天的就诊总结（After Visit Summary）发给你，首诊文件夹里也有纸质版。拿不准就发消息问，护士会在数据库里查。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>药物</th><th>结论</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Tylenol（对乙酰氨基酚）</td><td><span class="tag">可以</span></td><td>唯一推荐的止痛退烧非处方药。品牌或通用名、常规或加强剂量都行，按说明吃。</td></tr>
+      <tr><td class="k">NSAIDs：Advil、Motrin、布洛芬、Aleve</td><td><span class="tag no">不要</span></td><td>孕期不推荐。</td></tr>
+      <tr><td class="k">阿司匹林</td><td><span class="tag no">别自己吃</span></td><td>有风险因素的人约 12 周起可能被医生要求吃低剂量阿司匹林预防子痫前期，按医嘱吃没问题；但不要自己拿阿司匹林止痛。</td></tr>
+      <tr><td class="k">Zyrtec、Claritin、Benadryl</td><td><span class="tag">可以</span></td><td>只能用普通版，不要 Zyrtec-D / Claritin-D。</td></tr>
+      <tr><td class="k">Sudafed</td><td><span class="tag">有条件</span></td><td>早孕期过后才能用，且一次连续不超过 3 天。</td></tr>
+      <tr><td class="k">流感疫苗、新冠疫苗</td><td><span class="tag">建议打</span></td><td>流感疫苗诊所就能打，下次产检时可以要；新冠疫苗诊所没有，去药房打最新一剂。</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">感冒过敏时：多休息、多喝水；生理盐水喷鼻、润喉糖、加湿器；可以垫高上身睡。</p>
+</section>
+
+<section id="life">
+  <h2>生活注意事项 <span class="en">“But what about…”</span></h2>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><td class="k">烟酒毒品</td><td>全部停掉，包括大麻。</td></tr>
+      <tr><td class="k">性生活</td><td>一般整个孕期都安全，除非有阴道出血等并发症，或医生让你避免。</td></tr>
+      <tr><td class="k">看牙</td><td>继续定期检查洗牙，保持口腔卫生能减少感染。告诉牙医你怀孕了；尽量避免 X 光，必须拍时用铅围裙护住腹部。补牙、做牙冠都可以，需要的话诊所可以给牙医开证明信。</td></tr>
+      <tr><td class="k">猫砂</td><td>不要换猫砂，园艺要戴手套，防弓形虫。可以继续养猫、摸猫，接触猫粪后彻底洗手。只能自己换的话，戴手套和口罩。</td></tr>
+      <tr><td class="k">旅行</td><td>没有高危情况的话 28 周前一般都可以。28 周后不建议出国，国内出行先问 OB。开车：多停下休息、补水，提前了解沿途和目的地的医院。坐飞机：多喝水（机舱很干）；孕妇血栓风险高，<strong>要穿压力袜</strong>，安全时在机舱走动，不能走就在座位上转脚踝、活动腿。</td></tr>
+      <tr><td class="k">寨卡（Zika）</td><td>避免去寨卡流行区（查 CDC 网站），可致出生缺陷。你或伴侣去过流行区，剩余孕期同房要用安全套，即使对方没有症状。</td></tr>
+      <tr><td class="k">泡澡桑拿</td><td>避免热水浴缸、按摩浴缸、桑拿（核心体温升高对宝宝不安全）。温水澡和淋浴可以，水温不超过约 <span class="num">100°F</span>（约 <span class="num">38°C</span>），每次不超过 <span class="num">15</span> 分钟。</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="testing">
+  <h2>产前检查选项 <span class="en">Prenatal Testing</span></h2>
+  <p>以下检查<strong>全部自选</strong>，不是必须做的，可以全做也可以都不做。首诊时和医生讨论要做哪些，由医生开单并告诉你怎么做，不需要额外跑一趟诊所。就诊总结里会给 CPT 代码，可以先问保险能报多少。</p>
+
+  <div class="two">
+    <div>
+      <h3>1. 携带者筛查 <span class="small muted">Carrier Screening</span></h3>
+      <ul>
+        <li>查的是<strong>父母</strong>是否携带某些遗传病基因，和这次怀孕无关。抽妈妈的血，无创，怀孕与否都能做；以前做过就不用再做，基因不会变。</li>
+        <li>ACOG 建议所有人筛查<strong>脊髓性肌萎缩（SMA）</strong>和<strong>囊性纤维化（CF）</strong>。</li>
+        <li>宝宝要遗传到某种病，父母双方得携带同一种基因。妈妈阴性就不用查爸爸；妈妈阳性再查爸爸，双方都是携带者时，宝宝患病几率 <span class="num">25%</span>。</li>
+        <li>三种选择：不做 / 只做 CF + SMA（加医生建议的项目）/ 做 Natera <strong>Horizon</strong> 扩展筛查（一管血查 <span class="num">274</span> 种遗传病）。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>2. 孕期筛查 <span class="small muted">Screening Tests</span></h3>
+      <ul>
+        <li><strong>NIPT / 无创 DNA</strong>（Natera <strong>Panorama</strong>，cell-free DNA）：<span class="num">11w0d–21w0d</span>。筛 21、18、13 三体，可以知道性别（想保留惊喜可选不看）。无保险最高自付 <span class="num">$349</span>。</li>
+        <li><strong>加州产前筛查</strong>（msAFP 甲胎蛋白）：<span class="num">15w0d–21w0d</span>。筛脊柱裂等神经管缺陷。最高自付 <span class="num">$85</span>。和 NIPT 是两个独立检查，分两个时间做。</li>
+        <li>两项都要 10–14 天出结果。实验室“已完成”的通知不代表结果出来了，样本还要送到 Natera 或加州政府。2 周后还没消息再发消息问。</li>
+        <li><strong>NT 超声</strong>（颈项透明层）：MFM 做，约 <span class="num">12–13</span> 周。测宝宝颈后积液评估染色体风险，也相当于一次提早的结构检查（大排畸约 18–20 周）。</li>
+        <li>做过 PGT-A（试管胚胎检测）的，仍建议做 NIPT。</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>3. 诊断性检查 <span class="small muted">Diagnostic Tests</span></h3>
+  <p>属于有创操作，一般只在筛查提示高风险时才做。操作相关流产风险约 <span class="num">0.1%</span>（千分之一）。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>检查</th><th>时间</th><th>取什么</th><th>怎么取</th></tr></thead>
+    <tbody>
+      <tr><td class="k">绒毛取样 CVS</td><td class="num">10–14 周</td><td>少量胎盘组织</td><td>经宫颈导管，或经腹部穿刺</td></tr>
+      <tr><td class="k">羊水穿刺 Amniocentesis</td><td class="num">15 周以后</td><td>少量羊水</td><td>经腹部穿刺</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>筛查（NIPT、AFP 等）</th><th>诊断（CVS、羊穿）</th></tr></thead>
+    <tbody>
+      <tr><td class="k">结果</td><td>给出概率，区分高风险 / 低风险</td><td>给出“是 / 否”的确诊答案</td></tr>
+      <tr><td class="k">范围</td><td>只覆盖有限几种染色体疾病，不能查出所有情况</td><td>最全面，能查染色体片段缺失</td></tr>
+      <tr><td class="k">方式</td><td>无创，抽血</td><td>有创操作，<span class="num">0.1%</span> 流产风险</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="timeline">
+  <h2>孕周时间轴 <span class="en">What happens when</span></h2>
+  <p class="small muted">把课上提到的检查和节点按孕周画在一起。手机上可以左右滑动。</p>
+  <div class="tl-wrap"><div class="tl" id="tl"></div>
+    <div class="legend">
+      <span><i style="background:var(--accent)"></i>OB 医生产检</span>
+      <span><i style="background:var(--np)"></i>NP 产检</span>
+      <span><i style="background:var(--alert-soft);border:1px solid var(--alert)"></i>需要留意的时段</span>
+    </div>
+  </div>
+</section>
+
+<section id="visits">
+  <h2>产检安排 <span class="en">Appointments</span></h2>
+  <div class="two">
+    <div>
+      <h3>New OB 首诊（8–11 周）</h3>
+      <ul>
+        <li>之前那次是<strong>确认怀孕</strong>的就诊，只看是不是宫内孕。New OB 首诊才是真正的建档大诊，会拿到蓝色文件夹。</li>
+        <li>内容：完整病史和体检；讨论上面的产前检查选项；讨论常规化验；做超声确认胎心（viability ultrasound）。约 30 分钟。</li>
+        <li>今天会在你的档案里挂上一批常规化验单，<strong>首诊之后再去抽血</strong>，别提前做。</li>
+        <li>试管（IVF）毕业、已确认宫内孕的，直接约 New OB 首诊，不用再做确认怀孕就诊。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>之后每次复诊</h3>
+      <ul>
+        <li>可以带 1 位陪同。</li>
+        <li>称体重、量血压；评估胎儿生长；用多普勒听胎心。</li>
+        <li>提前把问题写下来，充分利用和医生的时间。</li>
+      </ul>
+      <h3>常规复诊时间表（孕周）</h3>
+      <div class="visits">
+        <span class="np">14 NP</span><span>18</span><span class="np">22 NP</span><span>26</span><span class="np">30 NP</span><span>33</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span>
+      </div>
+      <p class="small muted">橙色是 NP 看诊，其余是主治 OB。会按个人情况调整，可能更频繁。</p>
+    </div>
+  </div>
+</section>
+
+<section id="todo">
+  <h2>首诊前待办 <span class="en">Before your first appointment</span></h2>
+  <ul class="check" id="check">
+    <li><label><input type="checkbox" id="t1"><span>填好 2 份在线问卷（遗传史问卷 + 孕产史问卷），首诊前约 7 天发到 My Health Online，首诊前提交</span></label></li>
+    <li><label><input type="checkbox" id="t2"><span>看 My Health Online 里的 New OB 电子欢迎包</span></label></li>
+    <li><label><input type="checkbox" id="t3"><span>通过 Sutter Sync 注册 “From Bump to Baby”</span></label></li>
+    <li><label><input type="checkbox" id="t4"><span>想好产前检查要做哪些（携带者筛查、NIPT、AFP、NT），首诊时和医生说</span></label></li>
+    <li><label><input type="checkbox" id="t5"><span>问保险：NIPT / AFP / Horizon 的报销情况（用就诊总结里的 CPT 代码）；Good Samaritan 分娩是否在网</span></label></li>
+    <li><label><input type="checkbox" id="t6"><span>把想问医生的问题写下来（补充剂、用药、出行计划等）</span></label></li>
+    <li><label><input type="checkbox" id="t7"><span>保存诊所电话和下班后急事电话</span></label></li>
+    <li><label><input type="checkbox" id="t8"><span>打流感疫苗（诊所可打）和最新新冠疫苗（药房）</span></label></li>
+    <li><label><input type="checkbox" id="t9"><span>有空看看 Sutter 产前 / 产后课程（多为线上或混合），以及 Good Samaritan 的医院参观和课程</span></label></li>
+  </ul>
+  <p class="small muted">勾选只保存在这台设备的浏览器里。</p>
+</section>
+
+<section id="qa">
+  <h2>课堂答疑 <span class="en">Q&amp;A</span></h2>
+  <div class="qa">
+    <div><p class="q">戴手套和口罩换猫砂安全吗？</p><p class="a">最好让别人换。如果只能自己换，就戴手套和口罩。</p></div>
+    <div><p class="q">中耳炎、尿路感染这类感染都会伤害宝宝吗？</p><p class="a">不一定，看是什么感染。妈妈生病时宝宝通常没事，得了新冠或流感也一样。尿路感染可能刺激子宫引起宫缩或抽痛，所以首诊会给所有人查尿。需要当心的是食物里的某些细菌感染，所以食物要彻底做熟。</p></div>
+    <div><p class="q">做过 PGT-A，还需要做 NIPT 吗？</p><p class="a">仍然建议做，两者查的内容不完全一样。</p></div>
+    <div><p class="q">加州产前筛查的项目包含在 NIPT 里吗？</p><p class="a">不包含。加州筛查是查甲胎蛋白（脊柱裂等神经管缺陷），NIPT 是另一个检查，两者在不同时间分开做。</p></div>
+    <div><p class="q">怀孕期间能做牙冠吗，还是等生完？</p><p class="a">可以做，孕期看牙没问题。牙医需要的话，发消息给诊所，可以开一封证明信。</p></div>
+    <div><p class="q">Natera Horizon 最高自付多少？</p><p class="a">讲者手头没有这个数据，就诊总结里会有 Natera 的链接可以查。</p></div>
+    <div><p class="q">7 周做了第一次就诊，为什么没拿到资料包？</p><p class="a">那次是确认怀孕的就诊。资料包（蓝色文件夹）在 8–11 周的 New OB 首诊时发。</p></div>
+    <div><p class="q">可以做分娩计划（birth plan）吗？</p><p class="a">可以，一般在晚孕期和医生一起完善。首诊时也可以先聊大致想法。</p></div>
+    <div><p class="q">筛查要另外跑一趟诊所吗？</p><p class="a">不用。首诊时讨论，医生当场开单并告诉你什么时候做、多久出结果。</p></div>
+    <div><p class="q">做试管的需要再做确认怀孕就诊吗？</p><p class="a">不需要。已确认宫内孕并从试管诊所毕业的，直接约 8–11 周的 New OB 首诊。排期有疑问可以打电话核对。</p></div>
+    <div><p class="q">能把幻灯片发给我们吗？</p><p class="a">不能，幻灯片是 Sutter Health 的资料。可以自己截图；重要信息今天会随就诊总结发送。</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>来源：Sutter Health PAMF Los Gatos OB/GYN “New OB Orientation” Zoom 课程录屏。文字由幻灯片和自动字幕识别整理，个别数字以幻灯片为准。</p>
+  <p>本页是课程笔记，不是个人医疗建议；具体情况请以你的医生意见为准。</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  // Gestational-week ruler: weeks 0–40 mapped to 0–100%
+  var W = 40, pct = function (w) { return (w / W * 100) + '%'; };
+  var tl = document.getElementById('tl');
+  function row(label, sub, inner) {
+    var r = document.createElement('div'); r.className = 'tl-row';
+    r.innerHTML = '<div class="lab">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</div><div class="track">' + inner + '</div>';
+    tl.appendChild(r);
+  }
+  function bar(a, b, text, cls) {
+    return '<div class="bar ' + (cls || '') + '" style="left:' + pct(a) + ';width:calc(' + pct(b - a) + ' - 2px)" title="' + text + '">' + text + '</div>';
+  }
+  function dot(w, np) { return '<div class="dot' + (np ? ' np' : '') + '" style="left:' + pct(w) + '" title="' + w + ' 周' + (np ? '（NP）' : '') + '"></div>'; }
+
+  // axis + trimester band
+  var ax = ''; for (var w = 0; w <= 40; w += 4) ax += '<span style="left:' + pct(w) + '">' + w + '</span>';
+  var axisRow = document.createElement('div'); axisRow.className = 'tl-row';
+  axisRow.innerHTML = '<div class="lab muted">孕周</div><div class="axis">' + ax + '</div>';
+  tl.appendChild(axisRow);
+  var triRow = document.createElement('div'); triRow.className = 'tl-row';
+  triRow.innerHTML = '<div class="lab">孕期分段</div><div class="tri">' +
+    '<span style="width:' + pct(14) + ';background:var(--band1)">早孕 ≤13+6</span>' +
+    '<span style="width:' + pct(14) + ';background:var(--band2)">中孕 14–27+6</span>' +
+    '<span style="width:' + pct(12) + ';background:var(--band3)">晚孕 28–40</span></div>';
+  tl.appendChild(triRow);
+
+  var visits = '';
+  [14, 18, 22, 26, 30, 33, 36, 37, 38, 39, 40].forEach(function (w) { visits += dot(w, [14, 22, 30].indexOf(w) > -1); });
+  row('产检', '首诊 8–11 周', bar(8, 11, '首诊') + visits);
+  row('携带者筛查', '任何时候，一生一次', bar(0, 40, '怀孕前后都可以，做过不用重做', 'soft'));
+  row('CVS 绒毛取样', '诊断性', bar(10, 14, '10–14'));
+  row('NIPT', 'Natera Panorama', bar(11, 21, '11w0d – 21w0d'));
+  row('NT 超声', 'MFM', bar(12, 14, '12–13'));
+  row('AFP 加州筛查', '神经管缺陷', bar(15, 21, '15w0d – 21w0d'));
+  row('羊水穿刺', '诊断性', bar(15, 24, '15 周以后', 'fade'));
+  row('大排畸超声', 'MFM', bar(18, 20.5, '~18–20'));
+  row('Newborn Navigator', '帮选儿科医生', bar(15.6, 16.6, '') + '<span style="position:absolute;left:calc(' + pct(16.6) + ' + 6px);top:3px;color:var(--muted)">约 16 周联系你</span>');
+  row('低剂量阿司匹林', '仅限医嘱', bar(12, 40, '约 12 周起（有风险因素者）', 'soft'));
+  row('头痛警惕', '子痫前期', bar(20, 40, '20 周后头痛不缓解要打电话', 'warn'));
+  row('出行', '', bar(28, 40, '28 周后不建议出国；国内出行先问 OB', 'warn'));
+
+  // checklist persistence (per viewer, optional)
+  var KEY = 'newob-todo';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  document.querySelectorAll('#check input').forEach(function (cb) {
+    if (saved[cb.id]) cb.checked = true;
+    cb.addEventListener('change', function () {
+      saved[cb.id] = cb.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
